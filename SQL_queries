@@ -1,0 +1,45 @@
+#What's the most expensive listing? What else can you tell me about the listing?
+SELECT
+	MAX(CAST(price AS INT)) max_price,
+	id,
+	name,
+	host_name,
+	room_type,
+	neighbourhood_group,
+	neighbourhood,
+	availability_365,
+	minimum_nights,
+	number_of_reviews,
+	last_review,
+	reviews_per_month
+FROM
+	listings
+  
+#The most expensive listing is $7,700, and it is for a night in a private room in a place named Habitacion Moncloa - Aravaca Arguelles.  
+#It is located in a neighborhood group called Moncloa-Aravaca in a neighborhood called Arguelles.  
+#The host of the property is listed as Hector.  Its popularity is difficult to determine because it has no reviews.  
+#There is a column in the dataset labeled “availability_365,” which lists this property as available 364 days, 
+#but I cannot determine whether this means that the public has the ability to rent it 364 out of 365 days a year 
+#or whether this means that it was only rendered unavailable by a renter one day out of the 365-day calendar year.  
+#Depending on the meaning of the column, it could shed more light on the popularity of the this particular listing.
+
+#What neighborhoods seem to be the most popular?
+SELECT
+	AVG(CAST(availability_365 AS INT)) availability,
+	neighbourhood,
+	neighbourhood_group
+FROM
+	listings
+GROUP BY neighbourhood
+ORDER BY availability
+LIMIT 5
+
+#I used this SQL query to find the average availability for each neighborhood and then order by ascending availability.  
+#The reason I chose to do this was that I assumed that the most popular neighborhoods would have the least amount of availability 
+#because they would be booked more often than the less popular neighborhoods.  Based on this query, the five most popular neighborhoods are
+#as follows: 1) Corralejos (avg. availability = 108), 2) Orcasitas (120), 3) Orcasur (126.375), 4) San Andres (129.428571428571), and 
+#5) Arcos (131.722222222222).
+
+#What time of year is the cheapest time to go to your city? What about the busiest?
+
+
