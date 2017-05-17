@@ -42,4 +42,34 @@ LIMIT 5
 
 #What time of year is the cheapest time to go to your city? What about the busiest?
 
+WITH
+	Avail
+AS
+	(
+SELECT
+	available,
+	date
+FROM
+	calendar
+WHERE available = 'f'
+ORDER BY date
+)
+SELECT
+	COUNT(available) count,
+	date
+FROM
+	Avail
+GROUP BY DATE
+ORDER BY COUNT(available) DESC
+LIMIT 30
+
+#I used this SQL query to find the determine 30 busiest days of the year for AirBnB in Madrid.  For this query, I am assuming that when
+#a place is listed as unavailable (or available = 'f') it is because it has been reserved for use as a rental on that date.  Using this
+#query, I was able to count the number properties that were listed as unavailable for each day of the year.  I chose to limit the final 
+#search to the 30 busiest days because that would effectively give me the busiest "month" of the year.  It turns out that the busiest
+#month for AirBnB providers in Madrid is April and May, but especially April.  In the top 30 busiest days, only April and May are represented,
+#and April is represented 23 times while April is only represented 7 times.  It must be beautiful in Madrid in the Spring!
+
+
+
 
