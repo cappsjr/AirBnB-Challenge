@@ -40,7 +40,7 @@ LIMIT 5
 #as follows: 1) Corralejos (avg. availability = 108), 2) Orcasitas (120), 3) Orcasur (126.375), 4) San Andres (129.428571428571), and 
 #5) Arcos (131.722222222222).
 
-#What time of year is the cheapest time to go to your city? What about the busiest?
+#What time of year is the busiest?
 
 WITH
 	Avail
@@ -70,6 +70,16 @@ LIMIT 30
 #month for AirBnB providers in Madrid is April and May, but especially April.  In the top 30 busiest days, only April and May are represented,
 #and April is represented 23 times while April is only represented 7 times.  It must be beautiful in Madrid in the Spring!
 
-
-
+#What time of year is the cheapest time to go to your city?
+SELECT
+    strftime('%m', DATE(reviews.date)) Month,
+    AVG(listings.price)
+FROM
+    listings
+JOIN
+    reviews
+ON
+    listings.id = reviews.listing_id
+GROUP BY 1
+ORDER BY 2
 
